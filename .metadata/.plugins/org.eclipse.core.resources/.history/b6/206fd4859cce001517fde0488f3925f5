@@ -1,0 +1,12 @@
+package neustadt.mco364.colorku;
+
+public class SudokuPanel1 {
+
+	private Board board;
+	
+	
+	public SudokuPanel1(Board board){
+		
+	}
+	
+}

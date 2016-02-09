@@ -1,0 +1,53 @@
+package neustadt.mco364.colorku;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Box  extends JPanel{
+
+	private int x;
+	private int y;
+	private ColorChooser colorChooser;
+	//private Color color;
+	static Color[] colorArray;	
+	
+	public Box(int x, int y){
+		//super("", CENTER);
+		setPreferredSize(new Dimension(40, 40));
+		this.x = x;
+		this.y = y;
+		this.colorChooser = new ColorChooser();
+		colorChooser.setVisible(false);
+		
+		colorArray = new Color[9];
+		colorArray[0] = Color.RED;
+		colorArray[1] =Color.ORANGE;
+		colorArray[2] =Color.YELLOW;
+		colorArray[3] =Color.GREEN;
+		colorArray[4] =Color.BLUE;
+		colorArray[5] =Color.CYAN;
+		colorArray[6] =Color.PINK;
+		colorArray[7] =Color.DARK_GRAY;
+		colorArray[8] =Color.BLACK;
+				
+		this.setOpaque(true);
+		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		}
+	
+	public void setNumber(int number, boolean setByUser){
+		if(number > 0){
+		   // this.setText(String.valueOf(number));
+			setBackground(colorArray[number - 1]);
+		}
+		else{
+			colorChooser.setVisible(true);
+			//this.setText("");
+			//setBackground(Color.getHSBColor(0, 0, .9F));	
+			
+		}
+	}
+}
