@@ -1,0 +1,34 @@
+package neustadt.mco364.colorku;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class ColorChooser extends JPanel{
+private JLabel[][] colors;
+
+public ColorChooser() {
+	setLayout(new GridLayout(3,3));
+	
+	colors = new JLabel[3][3];
+	
+	colors[0][0] = new JLabel();
+	colors[0][0].setOpaque(true);
+	colors[0][0].setBackground(Color.RED);
+	
+	add(colors[0][0]);
+	colors[0][1] = Color.ORANGE;
+	colors[0][2] =Color.YELLOW;
+	colors[1][0] =Color.GREEN;
+	colors[1][1] =Color.BLUE;
+	colors[1][2] =Color.CYAN;
+	colors[2][0] =Color.PINK;
+	colors[2][1] =Color.DARK_GRAY;
+	colors[2][3] =Color.BLACK;
+	
+}
+	
+}

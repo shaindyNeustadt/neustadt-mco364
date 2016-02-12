@@ -1,0 +1,41 @@
+package neustadt.mco364.colorku;
+
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+
+public class Box  extends JComponent{
+
+	private int x;
+	private int y;
+	private Color color;
+	static Color[] colorArray;	
+	
+	public Box(int x, int y){
+		this.x = x;
+		this.y = y;
+		this.color = Color.WHITE;
+		colorArray = new Color[9];
+		colorArray[0] = Color.RED;
+		colorArray[1] =Color.ORANGE;
+		colorArray[2] =Color.YELLOW;
+		colorArray[3] =Color.GREEN;
+		colorArray[4] =Color.BLUE;
+		colorArray[5] =Color.CYAN;
+		colorArray[6] =Color.PINK;
+		colorArray[7] =Color.WHITE;
+		colorArray[8] =Color.BLACK;
+		
+		
+		this.setBackground(color);
+		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		}
+	
+	private void setColor(int colorNum){
+		color = colorArray[colorNum];
+	}
+	public void setNumber(int number, boolean setByUser){
+		this.setColor(number -1);
+	}
+}

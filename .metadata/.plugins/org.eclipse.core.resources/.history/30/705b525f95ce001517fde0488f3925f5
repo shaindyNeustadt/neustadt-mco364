@@ -1,0 +1,29 @@
+package neustadt.mco364.colorku;
+
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+
+/**
+ * Main class of program.
+ *
+ * @author Eric Beijer
+ */
+public class Sudoku extends JFrame {
+    public Sudoku() {
+        super("Sudoku");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setLayout(new BorderLayout());
+
+        Board game = new Board();
+
+        SudokuPanel sudokuPanel = new SudokuPanel();
+      
+        add(sudokuPanel, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
+         }
+
+    public static void main(String[] args) {
+            new Sudoku().setVisible(true);
+    }
+}
