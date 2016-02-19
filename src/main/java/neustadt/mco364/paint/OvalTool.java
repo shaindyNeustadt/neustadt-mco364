@@ -6,6 +6,8 @@ import java.awt.Graphics;
 public class OvalTool implements Tool {
 	private int x1;
 	private int y1;
+	private int x2;
+	private int y2;
 	private int width;
 	private int height;
 
@@ -13,6 +15,8 @@ public class OvalTool implements Tool {
 	public void mousePressed(Graphics g, int x, int y) {
 		this.x1 = x;
 		this.y1 = y;
+		this.x2 = x;
+		this.y2 = y;
 		this.width = 0;
 		this.height = 0;
 	}
@@ -20,21 +24,40 @@ public class OvalTool implements Tool {
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
 		g.setColor(Color.ORANGE);
-		width = x - x1;
-		height = y - y1;
-		g.drawOval(x1, y1, width, height);
+
+		this.width = Math.abs(x - x1);
+		this.height = Math.abs(y - y1);
+		if (x < x1 && y < y1) {
+			g.drawOval(x, y, width, height);
+		} else if (x < x1) {
+			g.drawOval(x, y1, width, height);
+		} else if (y < y1) {
+			g.drawOval(x1, y, width, height);
+		} else {
+			g.drawOval(x1, y1, width, height);
+		}
 	}
 
 	@Override
 	public void mouseDragged(Graphics g, int x, int y) {
-		this.width = x - x1;
-		this.height = y - y1;
+		this.width = Math.abs(x - x1);
+		this.height = Math.abs(y - y1);
+		this.x2 = x;
+		this.y2 = y;
 	}
 
 	@Override
 	public void drawPreview(Graphics g) {
 		g.setColor(Color.ORANGE);
-		g.drawOval(x1, y1, width, height);
+		if (x2 < x1 && y2 < y1) {
+			g.drawOval(x2, y2, width, height);
+		} else if (x2 < x1) {
+			g.drawOval(x2, y1, width, height);
+		} else if (y2 < y1) {
+			g.drawOval(x1, y2, width, height);
+		} else {
+			g.drawOval(x1, y1, width, height);
+		}
 	}
 
 }
