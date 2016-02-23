@@ -1,6 +1,5 @@
 package neustadt.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,40 +19,36 @@ public class Canvas extends JPanel {
 		this.addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
 			}
 
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			public void mousePressed(MouseEvent event) {
-				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mousePressed(buffer.getGraphics(), buffer, event.getX(),
+						event.getY());
 				repaint();
 
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mouseReleased(buffer.getGraphics(), event.getX(),
+						event.getY());
 				repaint();
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mouseDragged(buffer.getGraphics(), event.getX(),
+						event.getY());
 				repaint();
 			}
 
 			public void mouseMoved(MouseEvent e) {
-				// TODO Auto-generated method stub
 			}
 		});
 

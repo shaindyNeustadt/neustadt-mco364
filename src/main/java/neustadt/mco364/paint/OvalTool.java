@@ -2,6 +2,7 @@ package neustadt.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class OvalTool implements Tool {
 	private int x1;
@@ -11,8 +12,7 @@ public class OvalTool implements Tool {
 	private int width;
 	private int height;
 
-	@Override
-	public void mousePressed(Graphics g, int x, int y) {
+	public void mousePressed(Graphics g, BufferedImage buffer, int x, int y) {
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;
@@ -21,7 +21,6 @@ public class OvalTool implements Tool {
 		this.height = 0;
 	}
 
-	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
 		g.setColor(Color.ORANGE);
 
@@ -38,7 +37,6 @@ public class OvalTool implements Tool {
 		}
 	}
 
-	@Override
 	public void mouseDragged(Graphics g, int x, int y) {
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
@@ -46,7 +44,6 @@ public class OvalTool implements Tool {
 		this.y2 = y;
 	}
 
-	@Override
 	public void drawPreview(Graphics g) {
 		g.setColor(Color.ORANGE);
 		if (x2 < x1 && y2 < y1) {
@@ -59,5 +56,4 @@ public class OvalTool implements Tool {
 			g.drawOval(x1, y1, width, height);
 		}
 	}
-
 }

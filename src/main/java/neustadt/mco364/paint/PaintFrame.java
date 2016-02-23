@@ -25,7 +25,7 @@ public class PaintFrame extends JFrame {
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 
-		Canvas canvas = new Canvas();
+		final Canvas canvas = new Canvas();
 		container.add(canvas, BorderLayout.CENTER);
 		JPanel panel = new JPanel();
 		pencil = new JButton("Pencil");
@@ -43,36 +43,30 @@ public class PaintFrame extends JFrame {
 		setVisible(true);
 
 		pencil.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				canvas.setTool(new PencilTool());
 			}
 		});
-		
+
 		line.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				canvas.setTool(new LineTool());
 			}
 		});
-		
-		
+
 		square.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				canvas.setTool(new SquareTool());
 			}
 		});
-		
+
 		oval.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				canvas.setTool(new OvalTool());
 			}
 		});
-		
+
 		bucket.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent event) {
 				canvas.setTool(new BucketTool());
 			}
