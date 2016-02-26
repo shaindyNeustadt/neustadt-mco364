@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -33,12 +34,14 @@ public class PaintFrame extends JFrame {
 		square = new JButton("Square");
 		oval = new JButton("Oval");
 		bucket = new JButton("Bucket");
-		panel.setLayout(new GridLayout(1, 5));
+		panel.setLayout(new GridLayout(1, 6));
 		panel.add(pencil);
 		panel.add(line);
 		panel.add(square);
 		panel.add(oval);
 		panel.add(bucket);
+		JColorChooser colorChooser  = new JColorChooser();
+		panel.add(colorChooser);
 		container.add(panel, BorderLayout.NORTH);
 		setVisible(true);
 
@@ -68,7 +71,7 @@ public class PaintFrame extends JFrame {
 
 		bucket.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new BucketTool());
+				canvas.setTool(new BucketTool(canvas.getBufferedImage()));
 			}
 		});
 	}

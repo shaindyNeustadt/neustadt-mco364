@@ -8,7 +8,7 @@ public class PencilTool implements Tool {
 	private int x;
 	private int y;
 
-	public void mousePressed(Graphics g, BufferedImage buffer, int x, int y) {
+	public void mousePressed(Graphics g, int x, int y) {
 		g.setColor(Color.BLUE);
 		g.fillOval(x, y, 1, 1);
 		this.x = x;

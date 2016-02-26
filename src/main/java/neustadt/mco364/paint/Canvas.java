@@ -5,16 +5,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
 	private BufferedImage buffer;
 	private Tool tool;
+	private Stack<BufferedImage> undo;
+	private Stack<BufferedImage> redo;
 
 	public Canvas() {
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		tool = new PencilTool();
+		undo = new Stack<BufferedImage>();
+		redo = new Stack<BufferedImage>();
 
 		this.addMouseListener(new MouseListener() {
 
@@ -28,7 +33,7 @@ public class Canvas extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent event) {
-				tool.mousePressed(buffer.getGraphics(), buffer, event.getX(),
+				tool.mousePressed(buffer.getGraphics(), event.getX(),
 						event.getY());
 				repaint();
 
@@ -56,6 +61,10 @@ public class Canvas extends JPanel {
 
 	public void setTool(Tool t) {
 		tool = t;
+	}
+	
+	public BufferedImage getBufferedImage(){
+		return buffer;
 	}
 
 	@Override

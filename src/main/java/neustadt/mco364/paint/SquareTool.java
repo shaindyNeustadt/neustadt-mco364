@@ -12,7 +12,7 @@ public class SquareTool implements Tool {
 	private int width;
 	private int height;
 
-	public void mousePressed(Graphics g, BufferedImage buffer, int x, int y) {
+	public void mousePressed(Graphics g, int x, int y) {
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;

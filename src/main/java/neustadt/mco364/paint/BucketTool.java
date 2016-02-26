@@ -7,8 +7,14 @@ import java.util.Queue;
 
 public class BucketTool implements Tool {
 
-	public void mousePressed(Graphics g, BufferedImage buffer, int x, int y) {
-		fill(buffer, x, y);
+	private BufferedImage image;
+	
+	public BucketTool(BufferedImage image){
+		this.image = image;
+	}
+	
+	public void mousePressed(Graphics g, int x, int y) {
+		fill(x, y);
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
@@ -20,7 +26,7 @@ public class BucketTool implements Tool {
 	public void drawPreview(Graphics g) {
 	}
 
-	public void fill(BufferedImage buffer, int x1, int y1) {
+	public void fill(int x1, int y1) {
 		Queue<Point> queue = new LinkedList<Point>();
 		queue.add(new Point(x1, y1));
 
@@ -28,10 +34,10 @@ public class BucketTool implements Tool {
 			Point p = queue.remove();
 			int x = p.getX();
 			int y = p.getY();
-			if (x > 0 && y > 0 && x < buffer.getWidth()
-					&& y < buffer.getHeight() && isEmpty(buffer, x, y)) {
+			if (x > 0 && y > 0 && x < image.getWidth()
+					&& y < image.getHeight() && isEmpty(x, y)) {
 
-				buffer.setRGB(x, y, -256);
+				image.setRGB(x, y, -256);
 
 				queue.add(new Point(x - 1, y));
 				queue.add(new Point(x + 1, y));
@@ -41,7 +47,7 @@ public class BucketTool implements Tool {
 		}
 	}
 
-	public boolean isEmpty(BufferedImage image, int posX, int posY) {
+	public boolean isEmpty(int posX, int posY) {
 		int color = image.getRGB(posX, posY);
 		return color == 0;
 	}
