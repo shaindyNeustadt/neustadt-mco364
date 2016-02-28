@@ -11,6 +11,11 @@ public class SquareTool implements Tool {
 	private int y2;
 	private int width;
 	private int height;
+	private Color color;
+
+	public SquareTool(Color color) {
+		this.color = color;
+	}
 
 	public void mousePressed(Graphics g, int x, int y) {
 		this.x1 = x;
@@ -22,7 +27,7 @@ public class SquareTool implements Tool {
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.GREEN);
+		g.setColor(color);
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
 		x2 = x;
@@ -46,7 +51,7 @@ public class SquareTool implements Tool {
 	}
 
 	public void drawPreview(Graphics g) {
-		g.setColor(Color.GREEN);
+		g.setColor(color);
 		if (x2 < x1 && y2 < y1) {
 			g.drawRect(x2, y2, width, height);
 		} else if (x2 < x1) {
@@ -56,5 +61,9 @@ public class SquareTool implements Tool {
 		} else {
 			g.drawRect(x1, y1, width, height);
 		}
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 }

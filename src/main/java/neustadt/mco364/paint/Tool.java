@@ -1,7 +1,7 @@
 package neustadt.mco364.paint;
 
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public interface Tool {
 
@@ -12,4 +12,6 @@ public interface Tool {
 	void mouseDragged(Graphics g, int x, int y);
 
 	void drawPreview(Graphics g);
+
+	void setColor(Color color);
 }
