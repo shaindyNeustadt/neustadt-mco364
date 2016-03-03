@@ -2,7 +2,6 @@ package neustadt.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -37,12 +36,12 @@ public class Canvas extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent event) {
+				redo.clear();
 				undo.push(new BufferedImage(buffer.getColorModel(), buffer
 						.copyData(null), buffer.isAlphaPremultiplied(), null));
 				tool.mousePressed(buffer.getGraphics(), event.getX(),
 						event.getY());
 				repaint();
-
 			}
 
 			public void mouseReleased(MouseEvent event) {
