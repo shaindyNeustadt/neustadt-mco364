@@ -2,6 +2,7 @@ package neustadt.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -81,11 +82,11 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
-
 	}
 
 	public void undo() {
 		if (!undo.isEmpty()) {
+
 			redo.push(buffer);
 			buffer = undo.pop();
 			repaint();
@@ -94,9 +95,11 @@ public class Canvas extends JPanel {
 
 	public void redo() {
 		if (!redo.isEmpty()) {
+
 			undo.push(buffer);
 			buffer = redo.pop();
 			repaint();
 		}
 	}
+
 }
