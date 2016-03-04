@@ -54,11 +54,9 @@ public class PaintFrame extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				ToolButton button = (ToolButton) event.getSource();
 				canvas.setTool(button.getTool());
-				// button.setBorder(BorderFactory.createLineBorder(Color.BLACK,
-				// 3));
-				// lastPressed.setBorder(BorderFactory.createLineBorder(Color.BLACK,
-				// 1));
-				// lastPressed = button;
+				button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+				lastPressed.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+				lastPressed = button;
 			}
 		};
 
@@ -74,11 +72,10 @@ public class PaintFrame extends JFrame {
 			toolbar.add(button);
 			button.addActionListener(listener);
 		}
+		lastPressed = buttons[0];
+		buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 		colorChooser = new JButton("Choose Color");
 		colorChooser.setBackground(Color.RED);
-
-		// pencil.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-		// lastPressed = pencil;
 
 		toolbar.add(colorChooser);
 
