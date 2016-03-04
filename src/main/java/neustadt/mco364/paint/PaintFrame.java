@@ -19,14 +19,10 @@ public class PaintFrame extends JFrame {
 
 	private JButton undo;
 	private JButton redo;
-	private JButton pencil;
-	private JButton line;
-	private JButton square;
-	private JButton oval;
-	private JButton bucket;
 	private JButton colorChooser;
 	private JButton lastPressed;
-	private Color color;
+	private PaintProperties properties;
+	private ToolButton[] buttons;
 
 	public PaintFrame() {
 		setTitle("PaintFrame");
@@ -34,75 +30,68 @@ public class PaintFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
-
-		final Canvas canvas = new Canvas();
+		properties = new PaintProperties();
+		final Canvas canvas = new Canvas(properties);
 		container.add(canvas, BorderLayout.CENTER);
+
 		JPanel undoRedoPanel = new JPanel();
 		undoRedoPanel.setLayout(new GridLayout(2, 0));
+
 		undo = new JButton();
-		undo.setIcon(new ImageIcon(new ImageIcon("./undo.png").getImage()
-				.getScaledInstance(35, 35, Image.SCALE_SMOOTH)));
+		undo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/undo.png")).getImage().getScaledInstance(35,
+				35, Image.SCALE_SMOOTH)));
 		undo.setBackground(Color.WHITE);
+
 		redo = new JButton();
-		redo.setIcon(new ImageIcon(new ImageIcon("./redo.png").getImage()
-				.getScaledInstance(35, 35, Image.SCALE_SMOOTH)));
+		redo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/redo.png")).getImage().getScaledInstance(35,
+				35, Image.SCALE_SMOOTH)));
 		redo.setBackground(Color.WHITE);
 
 		undoRedoPanel.add(undo);
 		undoRedoPanel.add(redo);
-		JPanel panel = new JPanel();
 
-		pencil = new JButton();
-		pencil.setIcon(new ImageIcon(new ImageIcon("./pencil.jpg").getImage()
-				.getScaledInstance(75, 75, Image.SCALE_SMOOTH)));
-		pencil.setBackground(Color.WHITE);
+		ActionListener listener = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ToolButton button = (ToolButton) event.getSource();
+				canvas.setTool(button.getTool());
+				// button.setBorder(BorderFactory.createLineBorder(Color.BLACK,
+				// 3));
+				// lastPressed.setBorder(BorderFactory.createLineBorder(Color.BLACK,
+				// 1));
+				// lastPressed = button;
+			}
+		};
 
-		line = new JButton();
-		line.setIcon(new ImageIcon(new ImageIcon("./line.jpg").getImage()
-				.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		line.setBackground(Color.WHITE);
-
-		square = new JButton();
-		square.setIcon(new ImageIcon(new ImageIcon("./square.jpg").getImage()
-				.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		square.setBackground(Color.WHITE);
-
-		oval = new JButton();
-		oval.setIcon(new ImageIcon(new ImageIcon("./circle.jpg").getImage()
-				.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		oval.setBackground(Color.WHITE);
-
-		bucket = new JButton();
-		bucket.setIcon(new ImageIcon(new ImageIcon("./bucket.jpg").getImage()
-				.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-		bucket.setBackground(Color.WHITE);
-
+		JPanel toolbar = new JPanel();
+		toolbar.setLayout(new GridLayout(1, 7));
+		toolbar.add(undoRedoPanel);
+		buttons = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.jpg"),
+				new ToolButton(new LineTool(properties), "/line.jpg"),
+				new ToolButton(new SquareTool(properties), "/square.jpg"),
+				new ToolButton(new OvalTool(properties), "/circle.jpg"),
+				new ToolButton(new BucketTool(properties), "/bucket.jpg") };
+		for (ToolButton button : buttons) {
+			toolbar.add(button);
+			button.addActionListener(listener);
+		}
 		colorChooser = new JButton("Choose Color");
 		colorChooser.setBackground(Color.RED);
-		color = Color.RED;
 
-		pencil.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-		lastPressed = pencil;
+		// pencil.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		// lastPressed = pencil;
 
-		panel.setLayout(new GridLayout(1, 7));
-		panel.add(undoRedoPanel);
-		panel.add(pencil);
-		panel.add(line);
-		panel.add(square);
-		panel.add(oval);
-		panel.add(bucket);
-		panel.add(colorChooser);
+		toolbar.add(colorChooser);
 
-		container.add(panel, BorderLayout.NORTH);
+		container.add(toolbar, BorderLayout.NORTH);
 		setVisible(true);
 
 		colorChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				color = JColorChooser.showDialog(colorChooser,
-						"Choose Background Color", colorChooser.getBackground());
+				Color color = JColorChooser.showDialog(colorChooser, "Choose Background Color",
+						colorChooser.getBackground());
 				if (color != null) {
 					colorChooser.setBackground(color);
-					canvas.setColor(color);
+					properties.setColor(color);
 				}
 			}
 		});
@@ -116,56 +105,6 @@ public class PaintFrame extends JFrame {
 		redo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				canvas.redo();
-			}
-		});
-
-		pencil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new PencilTool(color));
-				pencil.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-				lastPressed.setBorder(BorderFactory.createLineBorder(
-						Color.BLACK, 1));
-				lastPressed = pencil;
-			}
-		});
-
-		line.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new LineTool(color));
-				line.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-				lastPressed.setBorder(BorderFactory.createLineBorder(
-						Color.BLACK, 1));
-				lastPressed = line;
-			}
-		});
-
-		square.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new SquareTool(color));
-				square.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-				lastPressed.setBorder(BorderFactory.createLineBorder(
-						Color.BLACK, 1));
-				lastPressed = square;
-			}
-		});
-
-		oval.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new OvalTool(color));
-				oval.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-				lastPressed.setBorder(BorderFactory.createLineBorder(
-						Color.BLACK, 1));
-				lastPressed = oval;
-			}
-		});
-
-		bucket.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				canvas.setTool(new BucketTool(canvas.getBufferedImage(), color));
-				bucket.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-				lastPressed.setBorder(BorderFactory.createLineBorder(
-						Color.BLACK, 1));
-				lastPressed = bucket;
 			}
 		});
 	}

@@ -1,6 +1,5 @@
 package neustadt.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,12 +14,12 @@ public class Canvas extends JPanel {
 	private Tool tool;
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
-	private Color color;
+	private PaintProperties properties;
 
-	public Canvas() {
-		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		color = Color.RED;
-		tool = new PencilTool(color);
+	public Canvas(PaintProperties properties) {
+		this.properties = properties;
+		buffer = properties.getImage();
+		tool = new PencilTool(properties);
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
 
@@ -37,24 +36,21 @@ public class Canvas extends JPanel {
 
 			public void mousePressed(MouseEvent event) {
 				redo.clear();
-				undo.push(new BufferedImage(buffer.getColorModel(), buffer
-						.copyData(null), buffer.isAlphaPremultiplied(), null));
-				tool.mousePressed(buffer.getGraphics(), event.getX(),
-						event.getY());
+				undo.push(new BufferedImage(buffer.getColorModel(), buffer.copyData(null), buffer
+						.isAlphaPremultiplied(), null));
+				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(),
-						event.getY());
+				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(),
-						event.getY());
+				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -66,10 +62,6 @@ public class Canvas extends JPanel {
 
 	public void setTool(Tool t) {
 		tool = t;
-	}
-
-	public void setColor(Color color) {
-		tool.setColor(color);
 	}
 
 	public BufferedImage getBufferedImage() {

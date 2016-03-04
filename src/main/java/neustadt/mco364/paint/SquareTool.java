@@ -2,19 +2,17 @@ package neustadt.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-public class SquareTool implements Tool {
+public class SquareTool extends Tool {
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
 	private int width;
 	private int height;
-	private Color color;
 
-	public SquareTool(Color color) {
-		this.color = color;
+	public SquareTool(PaintProperties properties) {
+		super(properties);
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {
@@ -27,7 +25,7 @@ public class SquareTool implements Tool {
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(color);
+		g.setColor(properties.getColor());
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
 		x2 = x;
@@ -51,7 +49,7 @@ public class SquareTool implements Tool {
 	}
 
 	public void drawPreview(Graphics g) {
-		g.setColor(color);
+		g.setColor(properties.getColor());
 		if (x2 < x1 && y2 < y1) {
 			g.drawRect(x2, y2, width, height);
 		} else if (x2 < x1) {
@@ -61,9 +59,5 @@ public class SquareTool implements Tool {
 		} else {
 			g.drawRect(x1, y1, width, height);
 		}
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
 	}
 }
