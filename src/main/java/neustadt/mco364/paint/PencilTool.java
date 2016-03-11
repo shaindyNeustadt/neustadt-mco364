@@ -1,8 +1,6 @@
 package neustadt.mco364.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class PencilTool extends Tool {
 	private int x;

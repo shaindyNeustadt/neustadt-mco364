@@ -13,8 +13,12 @@ public class PaintProperties {
 	private int height;
 
 	public PaintProperties() {
+		this.width = 800;
+		this.height = 600;
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		color = Color.RED;
+		this.weight = 1;
+		this.fill = false;
 	}
 
 	public BufferedImage getImage() {
