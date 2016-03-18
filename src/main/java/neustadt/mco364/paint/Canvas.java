@@ -1,23 +1,26 @@
 package neustadt.mco364.paint;
 
 import java.awt.Graphics;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JPanel;
 
+@Singleton
 public class Canvas extends JPanel {
 	private BufferedImage buffer;
 	private Tool tool;
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
-	private PaintProperties properties;
-
+	
+	@Inject
 	public Canvas(PaintProperties properties) {
-		this.properties = properties;
 		buffer = properties.getImage();
 		tool = new PencilTool(properties);
 		undo = new Stack<BufferedImage>();
