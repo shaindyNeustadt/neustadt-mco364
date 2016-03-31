@@ -1,7 +1,7 @@
 package neustadt.mco364.paint;
 
 import java.awt.Graphics;
-
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -41,19 +41,19 @@ public class Canvas extends JPanel {
 				redo.clear();
 				undo.push(new BufferedImage(buffer.getColorModel(), buffer.copyData(null), buffer
 						.isAlphaPremultiplied(), null));
-				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mousePressed((Graphics2D) buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
 			public void mouseReleased(MouseEvent event) {
-				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mouseReleased((Graphics2D) buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 		});
 		this.addMouseMotionListener(new MouseMotionListener() {
 
 			public void mouseDragged(MouseEvent event) {
-				tool.mouseDragged(buffer.getGraphics(), event.getX(), event.getY());
+				tool.mouseDragged((Graphics2D) buffer.getGraphics(), event.getX(), event.getY());
 				repaint();
 			}
 
@@ -75,7 +75,7 @@ public class Canvas extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(buffer, 0, 0, null);
-		tool.drawPreview(g);
+		tool.drawPreview((Graphics2D) g);
 	}
 
 	public void undo() {
