@@ -1,5 +1,6 @@
 package neustadt.mco364.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,6 +28,7 @@ public class SquareTool extends Tool {
 
 	public void mouseReleased(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
+		g.setStroke(properties.getStroke());
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
 		x2 = x;
@@ -51,6 +53,7 @@ public class SquareTool extends Tool {
 
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
+		g.setStroke(properties.getStroke());
 		if (x2 < x1 && y2 < y1) {
 			g.drawRect(x2, y2, width, height);
 		} else if (x2 < x1) {

@@ -71,10 +71,10 @@ public class Canvas extends JPanel {
 		return buffer;
 	}
 
-	protected void paintComponent(Graphics2D g) {
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(buffer, 0, 0, null);
-		tool.drawPreview(g);
+		tool.drawPreview((Graphics2D) g);
 	}
 
 	public void undo() {

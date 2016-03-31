@@ -1,5 +1,6 @@
 package neustadt.mco364.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,6 +26,7 @@ public class LineTool extends Tool {
 
 	public void mouseReleased(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
+		g.setStroke(properties.getStroke());
 		g.drawLine(x1, y1, x, y);
 	}
 
@@ -35,6 +37,7 @@ public class LineTool extends Tool {
 
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
+		g.setStroke(properties.getStroke());
 		g.drawLine(x1, y1, x2, y2);
 	}
 }

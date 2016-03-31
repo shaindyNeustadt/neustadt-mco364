@@ -1,5 +1,6 @@
 package neustadt.mco364.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,6 +31,7 @@ public class OvalTool extends Tool {
 
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
+		g.setStroke(properties.getStroke());
 		if (x < x1 && y < y1) {
 			g.drawOval(x, y, width, height);
 		} else if (x < x1) {
@@ -50,6 +52,7 @@ public class OvalTool extends Tool {
 
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
+		g.setStroke(properties.getStroke());
 		if (x2 < x1 && y2 < y1) {
 			g.drawOval(x2, y2, width, height);
 		} else if (x2 < x1) {
