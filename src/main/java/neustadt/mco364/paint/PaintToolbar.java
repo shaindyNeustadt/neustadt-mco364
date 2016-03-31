@@ -23,7 +23,7 @@ public class PaintToolbar extends Container {
 	private JButton undo, redo;
 
 	@Inject
-	public PaintToolbar(Canvas canvas, PaintProperties properties) {
+	public PaintToolbar(final Canvas canvas, final PaintProperties properties) {
 		setLayout(new GridLayout(1, 7));
 
 		JPanel undoRedoPanel = new JPanel();
