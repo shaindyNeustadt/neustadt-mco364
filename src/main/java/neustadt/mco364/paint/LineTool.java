@@ -1,12 +1,12 @@
 package neustadt.mco364.paint;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
 public class LineTool extends Tool {
+	
+	private static final Logger LOG = Logger.getLogger(LineTool.class.getSimpleName());
+	
 	private int x1;
 	private int y1;
 	private int x2;
@@ -21,7 +21,6 @@ public class LineTool extends Tool {
 		this.y1 = y;
 		this.x2 = x;
 		this.y2 = y;
-
 	}
 
 	public void mouseReleased(Graphics2D g, int x, int y) {
@@ -39,5 +38,8 @@ public class LineTool extends Tool {
 		g.setColor(properties.getColor());
 		g.setStroke(properties.getStroke());
 		g.drawLine(x1, y1, x2, y2);
+		
+		String message = String.format("x1= %d x2= %d y1= %d y2= %d", x1, y1, x2, y2);
+		LOG.fine(message);
 	}
 }
