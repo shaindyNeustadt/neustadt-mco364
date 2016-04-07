@@ -71,7 +71,6 @@ public class Canvas extends JPanel {
 		return buffer;
 	}
 
-	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(buffer, 0, 0, null);
