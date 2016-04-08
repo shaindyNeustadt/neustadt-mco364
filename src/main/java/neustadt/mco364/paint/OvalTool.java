@@ -13,8 +13,8 @@ public class OvalTool extends Tool {
 	private int width;
 	private int height;
 
-	public OvalTool(PaintProperties properties) {
-		super(properties);
+	public OvalTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	public void mousePressed(Graphics2D g, int x, int y) {
@@ -32,15 +32,9 @@ public class OvalTool extends Tool {
 		this.width = Math.abs(x - x1);
 		this.height = Math.abs(y - y1);
 		g.setStroke(properties.getStroke());
-		if (x < x1 && y < y1) {
-			g.drawOval(x, y, width, height);
-		} else if (x < x1) {
-			g.drawOval(x, y1, width, height);
-		} else if (y < y1) {
-			g.drawOval(x1, y, width, height);
-		} else {
-			g.drawOval(x1, y1, width, height);
-		}
+		int tempX = Math.min(x1, x);
+		int tempY = Math.min(y1, y);
+		g.drawOval(tempX, tempY, width, height);
 	}
 
 	public void mouseDragged(Graphics2D g, int x, int y) {
@@ -53,14 +47,8 @@ public class OvalTool extends Tool {
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
 		g.setStroke(properties.getStroke());
-		if (x2 < x1 && y2 < y1) {
-			g.drawOval(x2, y2, width, height);
-		} else if (x2 < x1) {
-			g.drawOval(x2, y1, width, height);
-		} else if (y2 < y1) {
-			g.drawOval(x1, y2, width, height);
-		} else {
-			g.drawOval(x1, y1, width, height);
-		}
+		int tempX = Math.min(x1, x2);
+		int tempY = Math.min(y1, y2);
+		g.drawOval(tempX, tempY, width, height);
 	}
 }

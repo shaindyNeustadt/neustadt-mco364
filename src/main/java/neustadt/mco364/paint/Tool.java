@@ -6,10 +6,12 @@ import java.awt.Graphics2D;
 public abstract class Tool {
 
 	protected PaintProperties properties;
+	protected CanvasRepaintManager manager;
 
-	public Tool(PaintProperties properties) {
+	public Tool(CanvasRepaintManager manager, PaintProperties properties) {
+		this.manager = manager;
 		this.properties = properties;
-	}
+		}
 
 	abstract void mousePressed(Graphics2D g, int x, int y);
 

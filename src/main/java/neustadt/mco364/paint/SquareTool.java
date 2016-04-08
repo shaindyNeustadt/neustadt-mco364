@@ -13,8 +13,8 @@ public class SquareTool extends Tool {
 	private int width;
 	private int height;
 
-	public SquareTool(PaintProperties properties) {
-		super(properties);
+	public SquareTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	public void mousePressed(Graphics2D g, int x, int y) {
@@ -33,15 +33,9 @@ public class SquareTool extends Tool {
 		this.height = Math.abs(y - y1);
 		x2 = x;
 		y2 = y;
-		if (x2 < x1 && y2 < y1) {
-			g.drawRect(x2, y2, width, height);
-		} else if (x2 < x1) {
-			g.drawRect(x2, y1, width, height);
-		} else if (y2 < y1) {
-			g.drawRect(x1, y2, width, height);
-		} else {
-			g.drawRect(x1, y1, width, height);
-		}
+		int tempX = Math.min(x1, x2);
+		int tempY = Math.min(y1, y2);
+		g.drawRect(tempX, tempY, width, height);
 	}
 
 	public void mouseDragged(Graphics2D g, int x, int y) {
@@ -54,14 +48,8 @@ public class SquareTool extends Tool {
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
 		g.setStroke(properties.getStroke());
-		if (x2 < x1 && y2 < y1) {
-			g.drawRect(x2, y2, width, height);
-		} else if (x2 < x1) {
-			g.drawRect(x2, y1, width, height);
-		} else if (y2 < y1) {
-			g.drawRect(x1, y2, width, height);
-		} else {
-			g.drawRect(x1, y1, width, height);
-		}
+		int tempX = Math.min(x1, x2);
+		int tempY = Math.min(y1, y2);
+		g.drawRect(tempX, tempY, width, height);
 	}
 }
